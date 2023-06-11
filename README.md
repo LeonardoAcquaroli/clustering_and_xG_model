@@ -1,5 +1,5 @@
 # playerank_R
-Playerank implemented in R.
+## Playerank implemented in R.
 
 Data used are taken from:
 
