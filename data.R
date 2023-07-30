@@ -37,7 +37,7 @@ for (file_path in file_list) {
 events = do.call(rbind, df_list)
 
 # TAGS
-tags = read.csv("https://raw.githubusercontent.com/LeonardoAcquaroli/playerank_R/main/data/tags2name.csv")
+tags = read.csv("https://raw.githubusercontent.com/LeonardoAcquaroli/clustering_and_xG_model/main/data/tags2name.csv")
 events$tags = lapply(events$tags, function(tags_df) {
                                              if ("id" %in% names(tags_df)){
                                                inner_join(x = as.data.frame(tags_df), y = tags[,c("Tag","Description")], by = c("id" = "Tag"))
@@ -45,20 +45,20 @@ events$tags = lapply(events$tags, function(tags_df) {
                                              })
                                                                       
 # TEAMS
-teams = stream_in(file("https://raw.githubusercontent.com/LeonardoAcquaroli/playerank_R/main/data/teams.json", "r"))
+teams = stream_in(file("https://raw.githubusercontent.com/LeonardoAcquaroli/clustering_and_xG_model/main/data/teams.json", "r"))
 # PLAYERS
-players = stream_in(file("https://raw.githubusercontent.com/LeonardoAcquaroli/playerank_R/main/data/players.json", "r"))
+players = stream_in(file("https://raw.githubusercontent.com/LeonardoAcquaroli/clustering_and_xG_model/main/data/players.json", "r"))
 players$shortName = stri_unescape_unicode(players$shortName)
 players$lastName = stri_unescape_unicode(players$lastName)
 players$firstName= stri_unescape_unicode(players$firstName)
 players$foot = lapply(players$foot, function(foot) {ifelse(foot == "both" | foot == "","right",foot)}) # replace 5 "both" and some ""
 
 # COMPETITIONS
-competitions = stream_in(file("https://raw.githubusercontent.com/LeonardoAcquaroli/playerank_R/main/data/competitions.json", "r"))
+competitions = stream_in(file("https://raw.githubusercontent.com/LeonardoAcquaroli/clustering_and_xG_model/main/data/competitions.json", "r"))
 # MATCHES
 # matches df needs a for loop because it must load different files
-matches_dir_path = "https://api.github.com/repos/LeonardoAcquaroli/playerank_R/contents/data/matches"
-matches_files_list = gh("/repos/LeonardoAcquaroli/playerank_R/contents/data/matches")
+matches_dir_path = "https://api.github.com/repos/LeonardoAcquaroli/clustering_and_xG_model/contents/data/matches"
+matches_files_list = gh("/repos/LeonardoAcquaroli/clustering_and_xG_model/contents/data/matches")
 # Initialize progress bar
 pb_matches = progress_bar$new(total = length(matches_files_list), format = "[:bar] :percent ETA: :eta")
 matches_dfs_list <- list()
@@ -251,7 +251,7 @@ players_features = players_features |>
 
 # NOW FIX THE NAMES FROM FBref and Wyscout to match them
 
-fullnames = read.csv("C:/Users/leoac/OneDrive - Università degli Studi di Milano/Unimi/Subjects/1st_year/03_quarter/Statistical learning/playerank_R/Code/cop_full_names.csv", sep = ";")
+fullnames = read.csv("C:/Users/leoac/OneDrive - Università degli Studi di Milano/Unimi/Subjects/1st_year/03_quarter/Statistical learning/clustering_and_xG_model/Code/cop_full_names.csv", sep = ";")
 cop = cop |>
   mutate(playerFullName = fullnames$playerName)
 
