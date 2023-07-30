@@ -12,7 +12,7 @@ library(htmltools) # to unescape playersFullName column' values
 library(fuzzyjoin) # to approximately match strings
 library(worldfootballR)
 # process in parallel
-#cl <- makeCluster(detectCores(), type='PSOCK')
+cl <- makeCluster(detectCores(), type='PSOCK')
 registerDoParallel(cl)
 
 # EVENTS
@@ -182,8 +182,8 @@ cop = events %>%
 # try to fetch all the data but gives error
 
 #urls <- fb_match_urls(country = "GER", gender = "M", season_end_year = 2018)
-urls <- fb_match_urls(country = "", gender = "M", season_end_year = 2016, tier = "", non_dom_league_url = "https://fbref.com/en/comps/1/history/World-Cup-Seasons")
-WC18 <- fb_advanced_match_stats(match_url=urls, stat_type = "summary", team_or_player="player")
+urls <- fb_match_urls(country = "ITA", gender = "M", season_end_year = 2023)
+teams_stats <- fb_advanced_match_stats(match_url = urls, stat_type = "summary", team_or_player = "team")
 
 # GER and FRA gave problems
 # <error/purrr_error_indexed>

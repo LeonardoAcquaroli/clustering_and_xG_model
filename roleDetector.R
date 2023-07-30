@@ -254,13 +254,18 @@ sapply(m, ac)
 hierarchical_clustering = agnes(features_matrix, method = "ward")
 #produce dendrogram
 pltree(hierarchical_clustering, cex = 0.6, hang = -1, main = "Dendrogram", xlab = "Hierarchical clustering with Ward's linkage") 
+
 # choice of k = number of clusters
+# silhouette score
+ss_Hierarc = silhouette(groups, dist(features_matrix))[,"sil_width"]
+mean(ss_Hierarc) # 0.101615 with k=8 | 0.1018822 with k = 7
+
 #calculate gap statistic for each number of clusters (up to 10 clusters)
 gapStatistic = clusGap(features_matrix, FUN = hcut, nstart = 25, K.max = 10, B = 50)
 fviz_gap_stat(gapStatistic) # gap statistic from Tibshirani
 
-groups <- cutree(hierarchical_clustering, k=8)
 #find number of observations in each cluster
+groups <- cutree(hierarchical_clustering, k=8)
 table(PCA_5means$cluster,groups)
 
 # assign clusters
@@ -274,10 +279,3 @@ hierarc_cop_plot = pitch() +
 "Players, displayed by mean positions, show a very different clustering shape
 w.r.t. Cintia and Pappalardo's work. Taking into accounts performance features changes things.")
 hierarc_cop_plot
-
-
-
-# TODO:
-## table(kmeans,hierarchical) to compare the results of the two clustering methods (see ex. at oecd_data_analysis.R)
-## in the table output --> when comparing hcluster and kmeans i have to check that the columns and the rows contains all 0 and one number (that is the number of observations in the cluster), that would be the best solution
-## table doesn't have to be squared --> clusters number can be different
