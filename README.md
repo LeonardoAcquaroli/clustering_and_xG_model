@@ -1,13 +1,14 @@
-# The Clustering project 
+# Statistical learning applied to football
+## The Clustering project 
 #### Application in R.
 
 Roles in football cannot be still considered as mere positions. Thus different clustering techniques are used in this repo in order to explore the different football roles under a new perspective in which **performance metrics**, in addition to the position, contribute to the definition of a role.
 
-# My first xG model
+## My first xG model
 The second part of the project is the development of different xG (Expected Goals) models in order to estimate the best one given the variables used in this approach.
 In addition to distance and angle, several others dummy variables were uses in order to give information about the action before the shot and the body part which the shot was took with.
 
-## Data
+### Data
 
 Data used are taken from:
 
